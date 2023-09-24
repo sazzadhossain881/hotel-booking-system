@@ -51,3 +51,6 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Hotel)
+admin.site.register(models.RoomType)
+admin.site.register(models.Amenity)

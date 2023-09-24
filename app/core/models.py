@@ -50,3 +50,42 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         """string representation of the user"""
         return self.email
+
+
+class UserToken(models.Model):
+    """user token objects"""
+
+    user_id = models.IntegerField()
+    token = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expire_at = models.DateTimeField()
+
+
+class Hotel(models.Model):
+    """Hotel objects"""
+
+    name = models.CharField(max_length=100)
+    address = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
+class RoomType(models.Model):
+    """room type objects"""
+
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
+class Amenity(models.Model):
+    """amenity objects"""
+
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
