@@ -40,9 +40,32 @@ class RoomTypeSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "description"]
 
 
-class AmenitySerializer(serializers.ModelSerializer):
+class EquipmentSerializer(serializers.ModelSerializer):
     """serializer for amenity objects"""
 
     class Meta:
-        model = models.Amenity
+        model = models.Equipment
         fields = ["id", "name", "description"]
+
+
+class RoomSerializer(serializers.ModelSerializer):
+    """serializer for the room objects"""
+
+    class Meta:
+        model = models.Room
+        fields = ["hotel", "type", "name", "price", "equipments"]
+
+    def __init__(self, *args, **kwargs):
+        super(RoomSerializer, self).__init__(*args, **kwargs)
+        self.Meta.depth = 1
+
+
+class AmenitySerializer(serializers.ModelSerializer):
+    """serializer for the amenity objects"""
+
+    class Meta:
+        model = models.Amenity
+        fields = ["room", "equipment", "quantity"]
+
+    def __init__(self, *args, **kwargs):
+        super(AmenitySerializer, self).__init__(*args, **kwargs)

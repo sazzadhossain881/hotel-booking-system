@@ -81,7 +81,7 @@ class RoomType(models.Model):
         return self.name
 
 
-class Amenity(models.Model):
+class Equipment(models.Model):
     """amenity objects"""
 
     name = models.CharField(max_length=200)
@@ -89,3 +89,24 @@ class Amenity(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Room(models.Model):
+    """room objects"""
+
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
+    equipments = models.ManyToManyField("Amenity", related_name="room_equipments")
+    name = models.CharField(max_length=20)
+    price = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Amenity(models.Model):
+    """room amenities object"""
+
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
+    equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, null=True)
+    quantity = models.PositiveSmallIntegerField(null=True)
